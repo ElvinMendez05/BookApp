@@ -1,0 +1,67 @@
+<div class="container my-4">
+  <form action="/?filtrar=true" method="GET">
+    <div class="row gy-3 align-items-end">
+
+      <!-- Buscar por título -->
+      <div class="col-md-5">
+        <label for="buscarTitulo" class="form-label fw-semibold">Buscar por título</label>
+        <input type="text" id="buscarTitulo" name="titulo" class="form-control" placeholder="Ej: Cien años de soledad">
+      </div>
+
+      <!-- Filtrar por categoría (múltiple pero compacto) -->
+      <div class="col-md-5">
+        <label for="filtroCategoria" class="form-label fw-semibold">Filtrar por categoría</label>
+        <div class="position-relative">
+          <select id="filtroCategoria" name="categorias" class="form-select form-select-sm" multiple size="4" style="height: auto;">
+            {{#each categorias}}
+              <option value="{{this.id}}">{{this.nombre}}</option>
+            {{/each}}
+          </select>
+          <small class="text-muted d-block mt-1">Usa Ctrl (o Cmd en Mac) para seleccionar varias</small>
+        </div>
+      </div>
+
+      <!-- Botón de búsqueda -->
+      <div class="col-md-2 d-grid">
+        <button class="btn btn-primary fw-semibold" type="submit">
+          <i class="bi bi-search me-1"></i> Buscar
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+
+{{#if hasLibros}}
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {{#each listaLibros}}
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+          <img
+            src="{{this.imagen}}"
+            class="card-img-top img-fluid"
+            alt="{{this.titulo}}"
+            style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{this.titulo}}</h5>
+            <p class="card-text text-muted">
+              <i class="bi bi-person-fill text-secondary me-1"></i><strong>Autor:</strong> {{this.autor}}
+            </p>
+            <p class="card-text text-muted">
+              <i class="bi bi-tags-fill text-primary me-1"></i><strong>Categoría:</strong> {{this.categoria}}
+            </p>
+            <p class="card-text text-muted">
+              <i class="bi bi-building text-info me-1"></i><strong>Editorial:</strong> {{this.editorial}}
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <div class="alert alert-info text-center">
+    <i class="bi bi-info-circle me-1"></i> No hay libros registrados o no hay resultados con los filtros aplicados.
+  </div>
+{{/if}}

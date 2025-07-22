@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page-title}}</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="/">
+      <i class="bi bi-book-half me-2"></i> BookApp
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto text-center">
+        <li class="nav-item px-2">
+          <a class="nav-link fw-semibold text-white" href="/"><i class="bi bi-house-door me-1"></i>Home</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link fw-semibold text-white" href="/libros"><i class="bi bi-journal-bookmark me-1"></i>Libros</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link fw-semibold text-white" href="/categorias"><i class="bi bi-tags me-1"></i>Categorías</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link fw-semibold text-white" href="/autores"><i class="bi bi-people me-1"></i>Autores</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link fw-semibold text-white" href="/editoriales"><i class="bi bi-building me-1"></i>Editoriales</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+   <main class="container mt-5">
+    {{{body}}}
+  </main>
+
+  
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/assets/js/lib/bootstrap/bootstrap.min.js"></script>  
+    {{{_sections.scripts}}} 
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<div class="container my-5">
+  <!-- Encabezado -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-primary">🧑‍🏫 Mantenimiento de Autores</h2>
+    <a href="/autores/create" class="btn btn-success">
+      <i class="bi bi-plus-circle"></i> Crear nuevo autor
+    </a>
+  </div>
+
+  {{#if hasAutores}}
+    <!-- Listado de autores -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {{#each autoresList}}
+        <div class="col">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">{{this.nombre}}</h5>
+              <p class="card-text text-muted mb-1">
+                <i class="bi bi-envelope-fill me-1 text-primary"></i><strong>Correo:</strong> {{this.correo}}
+              </p>
+              <p class="card-text text-muted mb-1">
+                <i class="bi bi-journal-bookmark-fill me-1 text-success"></i><strong>Libros asociados:</strong> {{this.Libros.length}}
+              </p>
+            </div>
+            <div class="card-footer bg-white border-top-0">
+              <div class="d-flex justify-content-end gap-2">
+                <a href="/autores/edit/{{this.id}}" class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+                  <i class="bi bi-pencil-square"></i> Editar
+                </a>
+                <form method="POST" action="/autores/delete" class="m-0 p-0">
+                  <input type="hidden" name="autoresId" value="{{this.id}}" />
+                  <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-trash3-fill"></i> Eliminar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-sm-6">
+        <div class="alert alert-info text-center" role="alert">
+          <i class="bi bi-info-circle me-2"></i>
+          No hay autores registrados actualmente.
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>
+
+{{#section "scripts"}}
+  <script src="/assets/js/site/autores/index.js"></script>
+{{/section}}

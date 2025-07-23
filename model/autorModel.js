@@ -10,7 +10,12 @@ const Autor = connection.define("autores", {
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
+  correo: {
+  type: DataTypes.STRING,
+  allowNull: false,
+  
+  },
 });
 
 export default Autor;

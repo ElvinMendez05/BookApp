@@ -1,0 +1,74 @@
+<div class="container my-5">
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+      <h2 class="fw-bold mb-4 text-primary">
+        <i class="bi bi-pencil-square me-2"></i>
+        {{#if editMode}}Editar Editorial: {{editorial.nombre}}{{else}}Crear Nueva Editorial{{/if}}
+      </h2>
+
+      <form action="/editoriales/{{#if editMode}}edit{{else}}create{{/if}}" method="POST">
+        <!-- Nombre -->
+        <div class="mb-3">
+          <label for="nombre" class="form-label fw-semibold">
+            <i class="bi bi-building me-1"></i>Nombre de la Editorial
+          </label>
+          <input
+            type="text"
+            class="form-control shadow-sm"
+            id="nombre"
+            name="nombre"
+            required
+            placeholder="Ej: Planeta"
+            value="{{#if editMode}}{{editorial.nombre}}{{/if}}"
+          >
+        </div>
+
+        <!-- Teléfono -->
+        <div class="mb-3">
+          <label for="telefono" class="form-label fw-semibold">
+            <i class="bi bi-telephone me-1"></i>Teléfono
+          </label>
+          <input
+            type="text"
+            class="form-control shadow-sm"
+            id="telefono"
+            name="telefono"
+            required
+            placeholder="Ej: +56 9 1234 5678"
+            value="{{#if editMode}}{{editorial.telefono}}{{/if}}"
+          >
+        </div>
+
+        <!-- País -->
+        <div class="mb-3">
+          <label for="pais" class="form-label fw-semibold">
+            <i class="bi bi-geo-alt-fill me-1"></i>País
+          </label>
+          <input
+            type="text"
+            class="form-control shadow-sm"
+            id="pais"
+            name="pais"
+            required
+            placeholder="Ej: Chile"
+            value="{{#if editMode}}{{editorial.pais}}{{/if}}"
+          >
+        </div>
+
+        {{#if editMode}}
+          <input type="hidden" name="categoriasId" value="{{editorial.id}}">
+        {{/if}}
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-between">
+          <a href="/editoriales/index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+          </a>
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle"></i> {{#if editMode}}Guardar Cambios{{else}}Crear{{/if}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,7 @@ const Libros = connection.define("Libros", {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    categoriaId: { // FK a Categoría
+    categoriaId: { 
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

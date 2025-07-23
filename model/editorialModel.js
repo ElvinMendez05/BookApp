@@ -10,7 +10,15 @@ const Editorial = connection.define("editoriales", {
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
+  telefono: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  pais: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
 export default Editorial;

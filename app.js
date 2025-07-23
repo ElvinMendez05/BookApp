@@ -6,7 +6,8 @@ import path from 'path';
 import homeRoutes from './router/home.js'
 import librosRoutes from './router/librosRouter.js';
 import categoriasRoutes from './router/categoriaRouter.js';
-// import tiposRoutes from './router/tiposRoutes.js';
+import autoresRoutes from './router/autorRouter.js';
+import editorialesRoutes from './router/editorialRouter.js';
 import context from './context/appContext.js'
 import {GetSection} from './utils/helpers/section.js'
 import {Equals} from './utils/helpers/compare.js';
@@ -23,7 +24,7 @@ app.engine('hbs', engine({
     eq: Equals,
     includes: function (array, value) {
       return Array.isArray(array) && array.includes(value);
-    }
+    },
   }
 }));
 
@@ -38,8 +39,8 @@ app.use(express.static(path.join(projectRoot, 'public')));
 app.use(homeRoutes);
 app.use('/libros', librosRoutes);
 app.use('/categorias', categoriasRoutes);
-// app.use('/tipos', tiposRoutes);
-
+app.use('/autores', autoresRoutes);
+app.use('/editoriales', editorialesRoutes);
 
 app.use((req, res) => {
     res.status(404).render('404', {title: "Page not found"});

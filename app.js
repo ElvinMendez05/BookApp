@@ -4,8 +4,8 @@ import {engine} from 'express-handlebars';
 import { projectRoot } from './utils/paths.js';
 import path from 'path';
 import homeRoutes from './router/home.js'
-// import pokemonRoutes from './router/pokemonesRoute.js';
-// import regionRoutes from './router/regionesRoutes.js';
+import librosRoutes from './router/librosRouter.js';
+import categoriasRoutes from './router/categoriaRouter.js';
 // import tiposRoutes from './router/tiposRoutes.js';
 import context from './context/appContext.js'
 import {GetSection} from './utils/helpers/section.js'
@@ -36,8 +36,8 @@ app.use(express.static(path.join(projectRoot, 'public')));
 
 //routes 
 app.use(homeRoutes);
-// app.use('/pokemones', pokemonRoutes);
-// app.use('/regiones', regionRoutes);
+app.use('/libros', librosRoutes);
+app.use('/categorias', categoriasRoutes);
 // app.use('/tipos', tiposRoutes);
 
 

@@ -8,19 +8,6 @@
         <input type="text" id="buscarTitulo" name="titulo" class="form-control" placeholder="Ej: Cien años de soledad">
       </div>
 
-      <!-- Filtrar por categoría (múltiple pero compacto) -->
-      <div class="col-md-5">
-        <label for="filtroCategoria" class="form-label fw-semibold">Filtrar por categoría</label>
-        <div class="position-relative">
-          <select id="filtroCategoria" name="categorias" class="form-select form-select-sm" multiple size="4" style="height: auto;">
-            {{#each categorias}}
-              <option value="{{this.id}}">{{this.nombre}}</option>
-            {{/each}}
-          </select>
-          <small class="text-muted d-block mt-1">Usa Ctrl (o Cmd en Mac) para seleccionar varias</small>
-        </div>
-      </div>
-
       <!-- Botón de búsqueda -->
       <div class="col-md-2 d-grid">
         <button class="btn btn-primary fw-semibold" type="submit">

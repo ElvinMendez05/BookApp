@@ -1,6 +1,6 @@
 import express from 'express';
 import { GetIndex, GetCreate, PostCreate, 
-    Delete, GetEdit, PostEdit } from '../controller/librosController.js';
+    Delete, GetEdit, PostEdit, GetDetalle} from '../controller/librosController.js';
 
 const router = express.Router();
 
@@ -11,6 +11,6 @@ router.post('/create', PostCreate);
 router.post('/delete', Delete);
 router.get('/edit/:librosId', GetEdit);
 router.post('/edit/:librosId', PostEdit);
-// router.get("/detalle/:id", GetDetalle);
+router.get("/detalle/:id", GetDetalle);
 
 export default router;

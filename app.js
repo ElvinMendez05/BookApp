@@ -47,7 +47,7 @@ app.use((req, res) => {
 });
 
 context.sequelize
-    .sync({alter: true})
+    .sync({force: true})
     .then(()=> {
       app.listen(process.env.PORT || 5000);
       console.log("Database corrected succefully");

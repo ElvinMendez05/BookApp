@@ -4,13 +4,12 @@ import AutorModel from "../model/autorModel.js"
 import EditorialModel from "../model/editorialModel.js";
 import CategoriaModel from "../model/categoriaModel.js";
 
-connection.authenticate()
-  .then(() => {
-    console.log("Database connection has been established successfully");
-  })
-  .catch((error) => {
-    console.error("Unable to connect to the database", error);
-  });
+try {
+  await connection.authenticate(); // Authenticate the connection
+  console.log("Database connection has been established successfully.");
+} catch (err) {
+  console.error("Error setting up the database connection:", err);
+}
 
 // Relaciones
 CategoriaModel.hasMany(LibroModel, { foreignKey: 'categoriaId' });

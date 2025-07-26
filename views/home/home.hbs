@@ -1,4 +1,4 @@
-<div class="container my-4">
+{{!-- <div class="container my-4">
   <form action="/" method="GET">
     <div class="row gy-3 align-items-end">
 
@@ -15,6 +15,35 @@
         >
       </div>
 
+      <!-- Dropdown de categorías -->
+      <div class="col-md-5">
+        <label class="form-label fw-semibold">Categorías</label>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown">
+            Seleccionar categorías
+          </button>
+          <ul class="dropdown-menu w-100 px-3" style="max-height: 250px; overflow-y: auto;">
+            {{#each categorias}}
+              <li>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="categorias"
+                    value="{{this.id}}"
+                    id="cat-{{this.id}}"
+                    {{#if (includes ../categoriasFiltro this.id)}}checked{{/if}}
+                  >
+                  <label class="form-check-label" for="cat-{{this.id}}">
+                    {{this.nombre}}
+                  </label>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+
       <!-- Botón de búsqueda -->
       <div class="col-md-2 d-grid">
         <button class="btn btn-primary fw-semibold" type="submit">
@@ -24,7 +53,67 @@
 
     </div>
   </form>
+</div> --}}
+
+<div class="container my-4">
+  <form action="/" method="GET">
+    <div class="row g-3 align-items-end">
+
+      <!-- Buscar por título -->
+      <div class="col-md-6">
+        <label for="titulo" class="form-label fw-semibold text-primary">Buscar por título</label>
+        <input
+          type="text"
+          id="titulo"
+          name="titulo"
+          class="form-control"
+          placeholder="Ej: Cien años de soledad"
+          value="{{tituloFiltro}}">
+      </div>
+
+      <!-- Filtro por categorías con colapsable -->
+      <div class="col-md-6">
+        <div class="filter-card">
+          <button class="btn btn-link p-0 text-decoration-none fw-semibold text-primary d-flex align-items-center mb-3"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseCategoriasFilter"
+                  aria-expanded="false"
+                  aria-controls="collapseCategoriasFilter">
+            Filtrar por categorías <i class="bi bi-chevron-down ms-2 collapse-icon"></i>
+          </button>
+
+          <div class="collapse" id="collapseCategoriasFilter">
+            <div class="filter-options border rounded p-2 mb-3" style="max-height: 250px; overflow-y: auto;">
+              {{#each categorias}}
+                <div class="form-check mb-1">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="categorias"
+                    value="{{this.id}}"
+                    id="categoria-{{@index}}"
+                    {{#if (includes ../categoriasFiltro this.id)}}checked{{/if}}>
+                  <label class="form-check-label" for="categoria-{{@index}}">
+                    {{this.nombre}}
+                  </label>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+
+          <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary fw-semibold">
+              <i class="bi bi-funnel-fill me-1"></i> Filtrar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
 </div>
+
 
 {{#if hasLibros}}
   <div class="container my-4">
@@ -38,17 +127,22 @@
               alt="{{this.nombre}}"
               style="height: 200px; object-fit: cover;"
             >
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title fw-bold">{{this.nombre}}</h5>
               <p class="card-text text-muted">
-                <i class="bi bi-person-fill text-secondary me-1"></i><strong>Autor:</strong> {{this.Autor.nombre}}
+                <i class="bi bi-person-fill text-secondary me-1"></i><strong>Autor:</strong> {{this.autor.nombre}}
               </p>
               <p class="card-text text-muted">
-                <i class="bi bi-tags-fill text-primary me-1"></i><strong>Categoría:</strong> {{this.Categoria.nombre}}
+                <i class="bi bi-tags-fill text-primary me-1"></i><strong>Categoría:</strong> {{this.categoria.nombre}}
               </p>
               <p class="card-text text-muted">
-                <i class="bi bi-building text-info me-1"></i><strong>Editorial:</strong> {{this.Editorial.nombre}}
+                <i class="bi bi-building text-info me-1"></i><strong>Editorial:</strong> {{this.editorial.nombre}}
               </p>
+              <div class="mt-auto">
+                <a href="/libros/detalle/{{this.id}}" class="btn btn-outline-primary w-100">
+                  Ver detalle
+                </a>
+              </div>
             </div>
           </div>
         </div>

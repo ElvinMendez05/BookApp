@@ -11,6 +11,13 @@ try {
   console.error("Error setting up the database connection:", err);
 }
 
+try {
+  await connection.query("DROP TABLE IF EXISTS categorias_backup;");
+  console.log("Tabla 'categorias_backup' eliminada correctamente.");
+} catch (error) {
+  console.error("Error al eliminar la tabla:", error);
+}
+
 // Relaciones
 CategoriaModel.hasMany(LibroModel, { foreignKey: 'categoriaId' });
 LibroModel.belongsTo(CategoriaModel, { foreignKey: 'categoriaId' });

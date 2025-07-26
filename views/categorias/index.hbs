@@ -32,7 +32,7 @@
                   <form action="/categorias/delete" method="POST" style="display:inline;">
                     <!-- Aquí corregí el name del input -->
                     <input type="hidden" name="categoriasId" value="{{this.id}}">
-                    <button type="submit" class="btn btn-sm btn-danger delete-libros">
+                    <button type="submit" class="btn btn-sm btn-danger delete-items">
                       <i class="bi bi-trash"></i> Eliminar
                     </button>
                   </form>
@@ -47,3 +47,7 @@
     <div class="alert alert-info mt-4">No hay categorías registradas.</div>
   {{/if}}
 </div>
+
+{{#section "scripts"}}
+  <script src="/assets/js/site/libros/index.js"></script>
+{{/section}}

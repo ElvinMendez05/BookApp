@@ -11,6 +11,9 @@ import editorialesRoutes from './router/editorialRouter.js';
 import context from './context/appContext.js'
 import {GetSection} from './utils/helpers/section.js'
 import {Equals} from './utils/helpers/compare.js';
+import multer from "multer"; 
+import { v4 as guidV4 } from "uuid";
+
 
 const app = express();
 
@@ -28,12 +31,24 @@ app.engine('hbs', engine({
   }
 }));
 
-
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(projectRoot, 'public')));
+
+// Set up multer for file uploads
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(projectRoot, "public", "assets", "img", "assets-images")); 
+  },
+  filename: (req, file, cb) => {
+    const fileName = `${guidV4()}-${file.originalname}`; 
+    cb(null, fileName);
+  },
+});
+
+app.use(multer({ storage: imageStorage }).single("Imagen")); 
 
 //routes 
 app.use(homeRoutes);
@@ -47,7 +62,7 @@ app.use((req, res) => {
 });
 
 context.sequelize
-    .sync({force: true})
+    .sync({alter: true})
     .then(()=> {
       app.listen(process.env.PORT || 5000);
       console.log("Database corrected succefully");

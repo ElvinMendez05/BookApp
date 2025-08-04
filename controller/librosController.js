@@ -68,7 +68,7 @@ export async function PostCreate(req, res, next) {
       subject: "Nuevo Libro",
       html: `<p>Un nuevo libro ha sido creado:</p>
              <p><strong>Nombre:</strong> ${nombre}</p>
-             <p><strong>Autor:</strong> ${AutorModel.nombre}</p>`,
+             <p><strong>Autor:</strong> ${nombre}</p>`,
     });
 
     res.redirect("/libros/index");
@@ -182,7 +182,7 @@ export async function GetDetalle(req, res, next) {
 
   try {
     const libroResult = await context.LibroModel.findOne({
-      where: { id },
+      where: { id: id },
       include: [
         context.CategoriaModel,
         context.AutorModel,
@@ -198,6 +198,8 @@ export async function GetDetalle(req, res, next) {
     }
 
     const libro = libroResult.get({ plain: true });
+
+    console.log(libro);
 
     res.render("home/detalle", {
       "page-title": `Detalle del libro: ${libro.nombre}`,

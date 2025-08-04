@@ -28,7 +28,9 @@ app.engine('hbs', engine({
     includes: function (array, value) {
       return Array.isArray(array) && array.includes(value);
     },
+    
   }
+  
 }));
 
 app.set('view engine', 'hbs');
@@ -62,7 +64,7 @@ app.use((req, res) => {
 });
 
 context.sequelize
-    .sync({alter: true})
+    .sync({alter: false })
     .then(()=> {
       app.listen(process.env.PORT || 5000);
       console.log("Database corrected succefully");

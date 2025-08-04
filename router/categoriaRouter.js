@@ -10,7 +10,7 @@ router.get('/create', GetCreate);
 router.post('/create', PostCreate);
 router.post('/delete', Delete);
 router.get('/edit/:categoriasId', GetEdit);
-router.post('/edit/:categoriasId', PostEdit);
+router.post('/edit', PostEdit);
 // router.get("/detalle/:id", GetDetalle);
 
 export default router;

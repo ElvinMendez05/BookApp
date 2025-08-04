@@ -4,14 +4,13 @@ export async function GetHome(req, res, next) {
   const tituloFiltro = (req.query.titulo || "").toLowerCase().trim();
   const categoriasSeleccionadas = req.query.categorias || [];
 
-  // Normalizamos categoriasFiltro para que siempre sea un array
   const categoriasFiltro = Array.isArray(categoriasSeleccionadas)
     ? categoriasSeleccionadas
     : [categoriasSeleccionadas];
 
   try {
-    // Cargar libros con relaciones y categorías en paralelo
-    const [librosRaw, categoriasRaw] = await Promise.all([
+    
+    const [librosRaw, categoriasRaw,] = await Promise.all([
       context.LibroModel.findAll({
         include: [
           context.CategoriaModel,
@@ -20,37 +19,39 @@ export async function GetHome(req, res, next) {
         ],
       }),
       context.CategoriaModel.findAll(),
+      context.AutorModel.findAll(),
+      context.EditorialModel.findAll()
     ]);
 
-    // Convertir resultados a objetos planos
     const libros = librosRaw.map((l) => l.get({ plain: true }));
     const categorias = categoriasRaw.map((c) => c.get({ plain: true }));
 
-    // Filtrar por título (case-insensitive)
-    let librosFiltrados = tituloFiltro
-      ? libros.filter((libro) =>
-          libro.nombre.toLowerCase().includes(tituloFiltro)
-        )
-      : libros;
 
-    // Filtrar por categorías seleccionadas (si no están vacías)
-    if (categoriasFiltro.length > 0 && categoriasFiltro[0] !== "") {
-      librosFiltrados = librosFiltrados.filter((libro) =>
-        categoriasFiltro.includes(String(libro.Categoria?.id))
-      );
-    }
+let librosFiltrados = tituloFiltro
+  ? libros.filter((libro) =>
+      libro.nombre.toLowerCase().includes(tituloFiltro)
+    )
+  : libros;
 
-    // Renderizar vista
+
+if (categoriasFiltro.length > 0 && categoriasFiltro[0] !== "") {
+  librosFiltrados = librosFiltrados.filter((libro) => {
+    const categoriaId = libro.Categoria?.id?.toString(); // aseguramos que sea string
+    return categoriaId && categoriasFiltro.includes(categoriaId);
+  });
+}
+
     res.render("home/home", {
       "page-title": "Inicio Libros",
       librosList: librosFiltrados,
       hasLibros: librosFiltrados.length > 0,
-      categorias,
-      categoriasSeleccionadas: categoriasFiltro,
-      tituloFiltro,
+      categorias: categorias,
+      categoriasFiltro: categoriasFiltro,
+      tituloFiltro: tituloFiltro,
     });
   } catch (err) {
     console.error("Error en GetHome Libros:", err);
     res.status(500).render("errors/500", { error: "Error interno del servidor" });
   }
 }
+

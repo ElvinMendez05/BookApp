@@ -35,14 +35,28 @@ export async function GetCreate(req, res, next) {
 }
 
 export async function PostCreate(req, res, next) {
-  const { nombre, telefono, pais } = req.body;
+    const { nombre, telefono, pais } = req.body;
+    
+     const userId = req.session.user?.id;
+      if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
 
-  try {
-    await context.EditorialModel.create({ nombre, telefono, pais });
-    return res.redirect("/editoriales/index");
-  } catch (err) {
-    console.error("Error creating editoriales:", err);
-  }
+    try {
+      const userId = req.session.user?.id; // toma el id del usuario logueado
+      if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
+
+      await context.EditorialModel.create({ nombre, telefono, pais, userId });
+      return res.redirect("/editoriales/index");
+    } catch (err) {
+      console.error("Error creating editoriales:", err);
+      req.flash("errors", "Error creating editorial.");
+      return res.redirect("/editoriales/create");
+    }
 }
 
 export async function GetEdit(req, res, next) {

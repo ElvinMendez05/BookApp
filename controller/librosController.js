@@ -50,7 +50,19 @@ export async function PostCreate(req, res, next) {
   const { nombre, anioPublicacion, categoriaId, autorId, editorialId } = req.body;
   const imagenFile = req.file;
 
+  const userId = req.session.user?.id;
+    if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
+
   try {
+    const userId = req.session.user?.id;
+      if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
+
     const imagen = imagenFile ? "\\" + path.relative("public", imagenFile.path) : null;
 
     await context.LibroModel.create({
@@ -59,7 +71,7 @@ export async function PostCreate(req, res, next) {
       anioPublicacion,
       categoriaId,
       autorId,
-      editorialId,
+      editorialId
     });
 
     await sendEmail({
@@ -73,6 +85,8 @@ export async function PostCreate(req, res, next) {
     res.redirect("/libros/index");
   } catch (err) {
     console.error("Error creando libro:", err);
+    req.flash("errors", "Error creating libros.");
+      return res.redirect("/libros/create");
   }
 }
 

@@ -37,11 +37,25 @@ export async function GetCreate(req, res, next) {
 export async function PostCreate(req, res, next) {
   const { nombre, descripcion } = req.body;
 
+  const userId = req.session.user?.id;
+      if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
+
   try {
-    await context.CategoriaModel.create({ nombre, descripcion });
+    const userId = req.session.user?.id;  
+      if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
+
+    await context.CategoriaModel.create({ nombre, descripcion, userId });
     return res.redirect("/categorias/index");
   } catch (err) {
     console.error("Error creating categorias:", err);
+    req.flash("errors", "Error creating categoria.");
+      return res.redirect("/categorias/create");
   }
 }
 

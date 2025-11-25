@@ -1,6 +1,6 @@
 import context from "../context/appContext.js";
 
-export async function GetHome(req, res, next) {
+export async function GetIndex(req, res, next) {
   const tituloFiltro = (req.query.titulo || "").toLowerCase().trim();
   const categoriasSeleccionadas = req.query.categorias || [];
 

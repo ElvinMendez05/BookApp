@@ -1,9 +1,9 @@
 import express from 'express';
-import { GetHome } from '../controller/homeController.js';
+import { GetIndex } from '../controller/homeController.js';
+import isAuth from '../middlewares/isAuth.js';
 
 const router = express.Router();
 
-//Home route
-router.get('/home', GetHome);
+router.get('/home', isAuth, GetIndex);
 
 export default router;

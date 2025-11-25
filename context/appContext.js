@@ -35,14 +35,12 @@ AutorModel.belongsTo(UserModel, { foreignKey: "userId" });
 
 UserModel.hasMany(EditorialModel, { foreignKey: "userId" });
 EditorialModel.belongsTo(UserModel, { foreignKey: "userId" });
-
-
  
 export default {
-  sequelize: connection,
+  sequelize: connection,   // <-- ESTE ES EL CORRECTO
   LibroModel,
   CategoriaModel,
   AutorModel,
   EditorialModel,
-  user
+  UserModel
 };

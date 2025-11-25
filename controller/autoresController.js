@@ -37,12 +37,27 @@ export async function GetCreate(req, res, next) {
 export async function PostCreate(req, res, next) {
   const { nombre, correo } = req.body;
 
-  try {
-    await context.AutorModel.create({ nombre, correo });
-    return res.redirect("/autores/index");
-  } catch (err) {
-    console.error("Error creating autor:", err);
-  }
+   const userId = req.session.user?.id;
+      if (!userId) {
+        req.flash("errors", "You must be logged in to create an editorial.");
+        return res.redirect("/login");
+      }
+    
+    try {
+      const userId = req.session.user?.id; // toma el id del usuario logueado
+        if (!userId) {
+          req.flash("errors", "You must be logged in to create an editorial.");
+          return res.redirect("/login"); 
+        }
+      
+      await context.AutorModel.create({ nombre, correo, userId });
+      return res.redirect("/autores/index"); 
+
+    } catch (err) {
+      console.error("Error creating autor:", err);
+      req.flash("errors", "Error creating autor.");
+      return res.redirect("/autores/create");
+    }
 }
 
 export async function GetEdit(req, res, next) {

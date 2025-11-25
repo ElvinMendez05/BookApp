@@ -8,6 +8,7 @@ import librosRoutes from './router/librosRouter.js';
 import categoriasRoutes from './router/categoriaRouter.js';
 import autoresRoutes from './router/autorRouter.js';
 import editorialesRoutes from './router/editorialRouter.js';
+import authRoutes from './router/auth-router.js'
 import context from './context/appContext.js'
 import {GetSection} from './utils/helpers/section.js'
 import {Equals} from './utils/helpers/compare.js';
@@ -28,7 +29,7 @@ app.engine('hbs', engine({
     includes: function (array, value) {
       return Array.isArray(array) && array.includes(value);
     },
-    
+  
   }
   
 }));
@@ -53,7 +54,8 @@ const imageStorage = multer.diskStorage({
 app.use(multer({ storage: imageStorage }).single("Imagen")); 
 
 //routes 
-app.use(homeRoutes);
+app.use(authRoutes)
+app.use('/home', homeRoutes);
 app.use('/libros', librosRoutes);
 app.use('/categorias', categoriasRoutes);
 app.use('/autores', autoresRoutes);
@@ -63,12 +65,11 @@ app.use((req, res) => {
     res.status(404).render('404', {title: "Page not found"});
 });
 
-context.sequelize
-    .sync({alter: false })
-    .then(()=> {
-      app.listen(process.env.PORT || 5000);
-      console.log("Database corrected succefully");
-    }) 
-    .catch((err) => {
-      console.error("Erro connecting to the database: ", err)
-    })
+try{
+  await context.sequelize.sync({alter: false});
+
+  app.listen(process.env.PORT || 5000);
+  console.log("Database corrected succefully");
+}catch(err){
+  console.error("Erro connecting to the database: ", err)
+}

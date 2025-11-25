@@ -16,6 +16,16 @@ const Autor = connection.define("autores", {
   allowNull: false,
   
   },
+   userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Users", // Name of the referenced model
+        key: "id", // Key in the referenced model
+      },
+      onDelete: "CASCADE", // Optional: define behavior on delete
+      onUpdate: "CASCADE", // Optional: define behavior on update
+    },
 });
 
 export default Autor;

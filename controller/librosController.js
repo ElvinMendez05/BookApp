@@ -4,7 +4,6 @@ import context from "../context/appContext.js";
 import { sendEmail } from "../services/EmailServices.js";
 import { projectRoot } from "../utils/paths.js"; 
 
-
 export async function GetIndex(req, res, next) {
   try {
     const result = await context.LibroModel.findAll({

@@ -27,19 +27,19 @@ export async function GetHome(req, res, next) {
     const categorias = categoriasRaw.map((c) => c.get({ plain: true }));
 
 
-let librosFiltrados = tituloFiltro
-  ? libros.filter((libro) =>
-      libro.nombre.toLowerCase().includes(tituloFiltro)
-    )
-  : libros;
+    let librosFiltrados = tituloFiltro
+      ? libros.filter((libro) =>
+          libro.nombre.toLowerCase().includes(tituloFiltro)
+        )
+      : libros;
 
 
-if (categoriasFiltro.length > 0 && categoriasFiltro[0] !== "") {
-  librosFiltrados = librosFiltrados.filter((libro) => {
-    const categoriaId = libro.Categoria?.id?.toString(); // aseguramos que sea string
-    return categoriaId && categoriasFiltro.includes(categoriaId);
-  });
-}
+    if (categoriasFiltro.length > 0 && categoriasFiltro[0] !== "") {
+      librosFiltrados = librosFiltrados.filter((libro) => {
+        const categoriaId = libro.Categoria?.id?.toString(); // aseguramos que sea string
+        return categoriaId && categoriasFiltro.includes(categoriaId);
+      });
+    }
 
     res.render("home/home", {
       "page-title": "Inicio Libros",

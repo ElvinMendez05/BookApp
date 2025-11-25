@@ -1,9 +1,9 @@
 import express from 'express';
-import { GetHome } from '../controller/homeController.js';
+import { GetLogin } from '../controller/authController.js';
 
 const router = express.Router();
 
 //Home route
-router.get('/home', GetHome);
+router.get('/', GetLogin);
 
 export default router;

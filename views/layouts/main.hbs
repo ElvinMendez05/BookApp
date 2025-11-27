@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="/">
       <i class="bi bi-book-half me-2"></i> BookApp
@@ -41,7 +41,9 @@
           <a class="nav-link fw-semibold text-white" href="/editoriales/index"><i class="bi bi-building me-1"></i>Editoriales</a>
         </li>
          <li class="nav-item">
-                <a class="nav-link fw-semibold text-white" href="/user/logout"> LogOut{{#if hasUser}}({{user.email}}){{/if}} </a>
+                <a class="nav-link fw-semibold text-white" href="/user/logout">
+                  <i class="bi bi-box-arrow-right"></i> LogOut{{#if hasUser}} ({{user.email}}){{/if}}
+                </a>
           </li>
       </ul>
     </div>

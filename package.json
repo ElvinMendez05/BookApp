@@ -7,7 +7,7 @@
     "start": "nodemon app.js",
     "qa": "cross-env NODE_ENV=qa nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-     "build:css": "tailwindcss -i ./public/assets/css/tailwind.css -o ./public/css/output.css --watch"
+    "build:css": "tailwindcss -i ./public/assets/css/tailwind.css -o ./public/assets/css/output.css --watch"
   },
   "keywords": [],
   "author": "",

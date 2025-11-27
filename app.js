@@ -135,23 +135,3 @@ try {
 
 
 
-
-// app.use(authRoutes)
-// app.use(homeRoutes);
-// app.use('/libros', librosRoutes);
-// app.use('/categorias', categoriasRoutes);
-// app.use('/autores', autoresRoutes);
-// app.use('/editoriales', editorialesRoutes);
-
-// app.use((req, res) => {
-//     res.status(404).render('404', {title: "Page not found"});
-// });
-
-// try{
-//   await context.sequelize.sync({alter: false});
-
-//   app.listen(process.env.PORT || 5000);
-//   console.log("Database corrected succefully");
-// }catch(err){
-//   console.error("Erro connecting to the database: ", err)
-// }
